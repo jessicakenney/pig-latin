@@ -8,7 +8,6 @@ $(document).ready(function() {
 
     var inputString = $("input:text").val();
     var splitsString = inputString.split("");
-    // alert(splitsString);
 
 
     function pushWay(splits) {
@@ -45,6 +44,17 @@ $(document).ready(function() {
       };
     };
 
+    function getFlipLetters(splits,index) {
+      return (splits.slice(0,index)).join("");
+    };
+    function getRootLetters(splits,index) {
+      return (splits.slice(index)).join("");
+    };
+
+    function makeConsonantPig (splits,index) {
+      return getRootLetters(splits,index) + getFlipLetters(splits,index) + "ay";
+    };
+
     function isVowel(letter) {
       var checker = 0;
       vowels.forEach(function(vowel) {
@@ -56,16 +66,17 @@ $(document).ready(function() {
       return (checker > 0);
     };
 
-    // alert("RESULT: " + isVowel(inputString));
-    // alert("RESULT: " + isConsonant(inputString));
+
      if (isFirstLetterVowel(splitsString[0])) {
        alert(pushWay(splitsString));
-     } else if (isFirstLetterY(splitsString[0])) {
-          alert(pushAy(splitsString));
+    //  } else if (isFirstLetterY(splitsString[0])) {
+    //       alert(pushAy(splitsString));
+     } else {
+       alert(getFirstVowelIndex(splitsString));
+       alert(getRootLetters(splitsString,getFirstVowelIndex(splitsString)));
+       alert(getFlipLetters(splitsString,getFirstVowelIndex(splitsString)));
+        alert(makeConsonantPig(splitsString,getFirstVowelIndex(splitsString)));
      };
-     alert("Your first vowel occurs at index: " + getFirstVowelIndex(splitsString));
-
-
 
 //FRONT
     var result = newString;
