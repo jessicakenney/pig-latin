@@ -1,14 +1,10 @@
 
-var newString = "";
+// var newString = "";
 var vowels = ["a","e","i","o","u","y"];
 
 $(document).ready(function() {
 
   $("form#pigLatin").submit(function(event) {
-
-    var inputString = $("input:text").val();
-    var splitsString = inputString.split("");
-
 
     function pushWay(splits) {
         var string = splits.join("");
@@ -37,7 +33,7 @@ $(document).ready(function() {
       var checker = 0;
       var length = splits.length;
       for (var index = 1; index <= (length - 1); index += 1) {
-        if (isVowel(splitsString[index]) && (checker === 0) ) {
+        if (isVowel(splits[index]) && (checker === 0) ) {
             checker = 1;
             return index;
         }
@@ -66,21 +62,23 @@ $(document).ready(function() {
       return (checker > 0);
     };
 
-
-     if (isFirstLetterVowel(splitsString[0])) {
-       alert(pushWay(splitsString));
-    //  } else if (isFirstLetterY(splitsString[0])) {
-    //       alert(pushAy(splitsString));
-     } else {
-       alert(getFirstVowelIndex(splitsString));
-       alert(getRootLetters(splitsString,getFirstVowelIndex(splitsString)));
-       alert(getFlipLetters(splitsString,getFirstVowelIndex(splitsString)));
-        alert(makeConsonantPig(splitsString,getFirstVowelIndex(splitsString)));
+    function getPigLatinWord(string) {
+       var newSplits = string.split("");
+       if (isFirstLetterVowel(newSplits[0])) {
+         return pushWay(newSplits);
+       } else {
+        //  alert("info" + getFirstVowelIndex(newSplits));
+        //  alert(getRootLetters(newSplits,getFirstVowelIndex(newSplits)));
+        //  alert(getFlipLetters(newSplits,getFirstVowelIndex(newSplits)));
+        return (makeConsonantPig(newSplits,getFirstVowelIndex(newSplits)));
+       };
      };
 
 //FRONT
-    var result = newString;
-    $("#result").append(result);
+    var inputString = $("input:text").val();
+    var result = getPigLatinWord(inputString);
+
+    $("#result").text(result);
     event.preventDefault();
   });
 });
